@@ -1,6 +1,11 @@
+import React from 'react';
 import avatar from '../assets/avatar.svg';
 
-const AvatarSVG = ({ size }) => (
+interface AvatarSVGProps {
+  size: string; // Define the type for size
+}
+
+const AvatarSVG: React.FC<AvatarSVGProps> = ({ size }) => (
   <img
     src={avatar}
     alt="Avatar"
@@ -8,9 +13,9 @@ const AvatarSVG = ({ size }) => (
   />
 );
 
-const IntroSection = () => {
+const IntroSection: React.FC = () => {
   const heyFontSize = '9vw'; // Decreased font size for "Hey"
-  const avatarSize = `calc(${heyFontSize} )`; // Avatar size based on "Hey" font size
+  const avatarSize = `calc(${heyFontSize})`; // Avatar size based on "Hey" font size
 
   return (
     <div

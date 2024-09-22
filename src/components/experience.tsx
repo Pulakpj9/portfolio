@@ -1,4 +1,22 @@
-const ExperienceItem = ({ logo, company, role, period, location, description }) => (
+import React from 'react';
+
+interface ExperienceItemProps {
+  logo: string;
+  company: string;
+  role: string;
+  period: string;
+  location: string;
+  description: string;
+}
+
+const ExperienceItem: React.FC<ExperienceItemProps> = ({
+  logo,
+  company,
+  role,
+  period,
+  location,
+  description,
+}) => (
   <div className="mb-12 bg-gray-800 rounded-lg p-6 shadow-lg">
     <div className="flex items-start mb-4">
       <div className="w-1/4 mr-6">
@@ -22,7 +40,7 @@ const ExperienceItem = ({ logo, company, role, period, location, description }) 
   </div>
 );
 
-const ExperienceSection = () => {
+const ExperienceSection: React.FC = () => {
   return (
     <section className="bg-gray-900 text-white py-16">
       <div className="container mx-auto px-4">
@@ -31,7 +49,7 @@ const ExperienceSection = () => {
           logo="/path-to-capgemini-logo.png"
           company="Capgemini"
           role="Software Analyst"
-          period="may 2023 - july 2023"
+          period="May 2023 - July 2023"
           location="Ahmedabad, India"
           description="Spearheaded the development of a Hospital Information Management Software (HIMS) leveraging the government-initiated ABDM architecture, while employing Agile software development life cycle (SDLC), revolutionizing patient record digitization possibly impacting 65% of doctors-patients interactions."
         />
@@ -39,7 +57,7 @@ const ExperienceSection = () => {
           logo="/path-to-infoware-logo.png"
           company="INFOWARE"
           role="Software Engineer"
-          period="Jan 2024 - today"
+          period="Jan 2024 - Present"
           location="Ahmedabad, India"
           description="Engaged in the development of a Hospital Information Management System and Alumni project as part of an ongoing internship. Contributed to various aspects of system design, implementation, and testing, gaining hands-on experience in software development and project management within a professional environment."
         />
