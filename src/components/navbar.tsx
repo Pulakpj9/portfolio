@@ -9,9 +9,9 @@ export default function Navbar() {
   const [isSocialsOpen, setIsSocialsOpen] = useState(false)
 
   const socialLinks = [
-    { name: 'Github', username: '@Pulakpj9', icon: Github },
-    { name: 'Linkedin', username: '@Pulakpj9', icon: Linkedin },
-    { name: 'Google Scholar', username: '@Pulakpj9', icon: GraduationCap },
+    { name: 'Github', username: '@Pulakpj9', icon: Github, url: 'https://github.com/Pulakpj9' },
+    { name: 'Linkedin', username: '@Pulakpj9', icon: Linkedin, url: 'https://www.linkedin.com/in/pulak-jain-aa1053203/' },
+    { name: 'Google Scholar', username: '@Pulakpj9', icon: GraduationCap, url: 'https://scholar.google.com/citations?user=WdzmqEwAAAAJ&hl=en' },
   ]
 
   return (
@@ -38,7 +38,7 @@ export default function Navbar() {
                 {socialLinks.map((social, index) => (
                   <a
                     key={index}
-                    href="#"
+                    href={social.url}
                     className="flex items-center justify-between px-4 py-2 text-sm text-gray-300 hover:bg-gray-800"
                   >
                     <div className="flex items-center">
@@ -90,7 +90,7 @@ export default function Navbar() {
             {socialLinks.map((social, index) => (
               <a
                 key={index}
-                href="#"
+                href={social.url}
                 className="flex items-center justify-between py-2 text-sm text-gray-300 hover:bg-gray-700"
               >
                 <div className="flex items-center">
