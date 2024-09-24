@@ -2,51 +2,37 @@ import React from 'react';
 import avatar from '../assets/avatar.svg';
 
 interface AvatarSVGProps {
-  size: string; // Define the type for size
+  size: string;
 }
 
 const AvatarSVG: React.FC<AvatarSVGProps> = ({ size }) => (
   <img
     src={avatar}
     alt="Avatar"
-    className={`w-[${size}] h-[${size}] rounded-full`} // Dynamic size for the avatar
+    className={`w-[${size}] h-[${size}] rounded-full`}
   />
 );
 
 const IntroSection: React.FC = () => {
-  const heyFontSize = '9vw'; // Decreased font size for "Hey"
-  const avatarSize = `calc(${heyFontSize})`; // Avatar size based on "Hey" font size
-
   return (
-    <div
-      className="bg-gradient-to-b from-gray-900 to-gray-800 text-white h-[calc(100vh-4rem)] flex align-items-center justify-center"
-      style={{ padding: '5vh 10vw' }} // Adds padding of 10vh vertically and 10vw horizontally
-    >
-      <div className="flex flex-col justify-around h-full w-full">
-        <h1 
-          className="font-bold flex items-baseline text-[9vw] md:text-[7vw] lg:text-[6vw] w-full" // Adjusted font size
-          style={{ wordSpacing: '0.4em' }}  // Increased word spacing for "Hey"
-        >
-          Hey <span className="inline-block ml-2"><AvatarSVG size={avatarSize} /></span>
-        </h1>
-        <h2 
-          className="font-bold text-[7vw] md:text-[6vw] lg:text-[5vw] w-full" // Adjusted font size
-          style={{ wordSpacing: '0.5em' }}  // Increased word spacing for h2
-        >
-          I am <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">pulakJain</span>
-        </h2>
-        <p 
-          className="text-[7vw] md:text-[6vw] lg:text-[5vw] w-full"
-          style={{ wordSpacing: '0.3em' }} // Increased word spacing for "Your Go → To"
-        >
-          Your Go → To
-        </p>
-        <p 
-          className="font-semibold text-[7vw] md:text-[6vw] lg:text-[5vw] w-full"
-          style={{ wordSpacing: '0.3em' }}  // Increased word spacing for "Human Software Eng."
-        >
-          Human Software Eng.
-        </p>
+    <div className="bg-transparent text-white min-h-[90vh] flex items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-5xl flex flex-col min-h-[calc(90vh-2rem)]">
+        <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+          <h1 className="font-bold flex items-baseline text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
+            Hey <span className="inline-block ml-2"><AvatarSVG size="1em" /></span>
+          </h1>
+          <h2 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ wordSpacing: '0.3em' }}>
+            I am <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">pulakJain</span>
+          </h2>
+        </div>
+        <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10 mt-8 sm:mt-12 md:mt-16 lg:mt-20">
+          <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl" style={{ wordSpacing: '0.2em' }}>
+            Your Go → To
+          </p>
+          <p className="font-semibold text-4xl sm:text-5xl md:text-6xl lg:text-7xl" style={{ wordSpacing: '0.2em' }}>
+            Human Software Eng.
+          </p>
+        </div>
       </div>
     </div>
   );
