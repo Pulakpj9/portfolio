@@ -16,7 +16,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-gradient-to-b from-gray-800 to-gray-900 text-white">
-      <div className="flex items-center justify-between px-4 py-3 md:px-6">
+      <div className="relative flex items-center justify-between px-4 py-3 md:px-6">
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
           <span className="text-sm font-medium">Experience</span>
@@ -66,11 +66,11 @@ export default function Navbar() {
           Resume
         </Button>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile Menu Button - Absolutely Positioned */}
         <Button
           variant="ghost"
           size="icon"
-          className="md:hidden"
+          className="md:hidden absolute right-4 top-1/2 transform -translate-y-1/2 z-50"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -79,9 +79,9 @@ export default function Navbar() {
         </Button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Now Absolutely Positioned */}
       {isMenuOpen && (
-        <div className="md:hidden bg-gray-800 py-2">
+        <div className="md:hidden absolute top-full left-0 right-0 bg-gray-800 py-2 shadow-lg z-40">
           <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-700">Experience</a>
           <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-700">Work</a>
           <a href="#" className="block px-4 py-2 text-sm hover:bg-gray-700">Skills</a>
