@@ -50,9 +50,9 @@ export default function IntroSection() {
       <div className="w-full h-full max-w-[80vw] flex items-center justify-center">
         <div ref={contentRef} className="w-full h-[80%] flex flex-col justify-center items-start overflow-hidden space-y-[0.5em]">
           <p className="font-light flex items-center flex-wrap">
-            <span className="inline-flex items-center">
+            <span className="inline-flex items-baseline">
               Hey
-              <img src={Avatar} className="w-[1em] h-[1em] ml-2 inline-block"/>
+              <img src={Avatar} className="w-[40%] ml-[5%] inline-block"/>
             </span>
           </p>
           <p className="font-light">
