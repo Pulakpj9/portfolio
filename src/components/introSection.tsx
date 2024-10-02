@@ -1,60 +1,51 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import avatar from '../assets/avatar.svg';
 
-interface AvatarSVGProps {
-  size: string;
-  className?: string;
-}
-
-const AvatarSVG: React.FC<AvatarSVGProps> = ({ size, className = '' }) => (
-  <img
-    src={avatar}
-    alt="Avatar"
-    className={`w-${size} h-${size} ${className}`}
-  />
-);
-
 const IntroSection: React.FC = () => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const resizeText = () => {
+      const content = contentRef.current;
+      if (!content) return;
+
+      const containerWidth = content.offsetWidth;
+      const containerHeight = content.offsetHeight;
+
+      // Start with a base font size and adjust
+      let fontSize = 1;
+      content.style.fontSize = `${fontSize}px`;
+
+      while (content.scrollHeight <= containerHeight && content.scrollWidth <= containerWidth) {
+        fontSize++;
+        content.style.fontSize = `${fontSize}px`;
+      }
+
+      // Step back once to ensure it fits
+      fontSize--;
+      content.style.fontSize = `${fontSize}px`;
+    };
+
+    resizeText();
+    window.addEventListener('resize', resizeText);
+
+    return () => window.removeEventListener('resize', resizeText);
+  }, []);
+
   return (
-    <div className="bg-transparent text-white min-h-[83.5vh]" style={{ padding: '5% 10%', fontFamily: 'IBM Plex Mono, monospace' }}>
-      <div className="w-full grid min-h-[73.5vh]">
-          <span className="flex items-baseline text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-            Hey
-          <AvatarSVG size="30" className="inline-block ml-2" />
-          </span>
-        <p className="tracking-wider text-3xl sm:text-4xl md:text-5xl lg:text-6xl" >
-          I am <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600" >pulakJain</span>
+    <div className="bg-gradient-to-br from-gray-800 to-black text-white min-h-screen flex items-center justify-center">
+      <div ref={contentRef} className="w-[80vw] h-[80vh] flex flex-col justify-center items-start">
+        <p className="font-light flex items-center whitespace-nowrap">
+          Hey <img src={avatar} alt="Avatar" className="w-[1em] h-[1em] ml-2" />
         </p>
-        <p className="tracking-wide text-4xl sm:text-5xl md:text-6xl lg:text-7xl">Your Go → To</p>
-        <p className="tracking-wide text-4xl sm:text-5xl md:text-6xl lg:text-7xl">Human Software Eng.</p>
+        <p className="font-light whitespace-nowrap">
+          I am <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">pulakJain</span>
+        </p>
+        <p className="font-light mt-[0.2em] whitespace-nowrap">Your Go → To</p>
+        <p className="font-light whitespace-nowrap">Human Software Eng.</p>
       </div>
     </div>
   );
 };
 
-export default IntroSection;
-
-
-
-  // return (
-  //   <div className="bg-transparent text-white min-h-[90vh] flex items-center justify-center p-4 sm:p-6">
-  //     <div className="w-full max-w-5xl flex flex-col min-h-[calc(90vh-2rem)]">
-  //       <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-  //         <h1 className="font-bold flex items-baseline text-3xl sm:text-4xl md:text-5xl lg:text-6xl">
-  //           Hey <span className="inline-block ml-2"><AvatarSVG size="1em" /></span>
-  //         </h1>
-  //         <h2 className="font-bold text-3xl sm:text-4xl md:text-5xl lg:text-6xl" style={{ wordSpacing: '0.3em' }}>
-  //           I am <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">pulakJain</span>
-  //         </h2>
-  //       </div>
-  //       <div className="flex flex-col gap-4 sm:gap-6 md:gap-8 lg:gap-10 mt-8 sm:mt-12 md:mt-16 lg:mt-20">
-  //         <p className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl" style={{ wordSpacing: '0.2em' }}>
-  //           Your Go → To
-  //         </p>
-  //         <p className="font-semibold text-4xl sm:text-5xl md:text-6xl lg:text-7xl" style={{ wordSpacing: '0.2em' }}>
-  //           Human Software Eng.
-  //         </p>
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
+export default IntroSection;  
