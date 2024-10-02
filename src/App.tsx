@@ -7,13 +7,13 @@ import TextureMesh from "@/components/textureMesh"; // Assuming TextureMesh is i
 
 function App() {
   return (
-    <div className="relative min-h-screen bg-gray-900">
-      {/* Background shader effect */}
+    <div className="relative min-h-screen" style={{ backgroundColor: '#242424', fontFamily: 'IBM Plex Mono' }}>
+      {/* Background shader effect
       <div className="absolute inset-0 z-0">
         <Canvas>
           <TextureMesh />
         </Canvas>
-      </div>
+      </div> */}
 
       {/* Overlay Content */}
       <div className="relative z-10">
