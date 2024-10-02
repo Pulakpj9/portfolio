@@ -33,6 +33,10 @@ export default function IntroSection() {
         fontSize--
         content.style.fontSize = `${fontSize}px`
       }
+
+      // Set line height based on font size
+      const lineHeight = Math.max(1.2, Math.min(1.5, 30 / fontSize))
+      content.style.lineHeight = `${lineHeight}`
     }
 
     resizeText()
@@ -42,16 +46,19 @@ export default function IntroSection() {
   }, [])
 
   return (
-    <div className="bg-gradient-to-br from-gray-800 to-black text-white h-[90vh] flex items-center justify-center">
+    <div className="bg-gradient-to-br from-gray-800 to-black text-white h-[90.7vh] flex items-center justify-center">
       <div className="w-full h-full max-w-[80vw] flex items-center justify-center">
-        <div ref={contentRef} className="w-full h-[80%] flex flex-col justify-center items-start overflow-hidden">
+        <div ref={contentRef} className="w-full h-[80%] flex flex-col justify-center items-start overflow-hidden space-y-[0.5em]">
           <p className="font-light flex items-center flex-wrap">
-            Hey <img src={Avatar} className="w-[1.6em] h-[1.6em] ml-2"/>
+            <span className="inline-flex items-center">
+              Hey
+              <img src={Avatar} className="w-[1em] h-[1em] ml-2 inline-block"/>
+            </span>
           </p>
           <p className="font-light">
             I am <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">pulakJain</span>
           </p>
-          <p className="font-light mt-[0.2em]">Your Go → To</p>
+          <p className="font-light">Your Go → To</p>
           <p className="font-light">Human Software Eng.</p>
         </div>
       </div>
