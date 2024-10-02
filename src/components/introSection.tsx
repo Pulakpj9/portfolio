@@ -1,3 +1,5 @@
+"use client"
+
 import { useEffect, useRef } from 'react'
 import Avatar from "../assets/avatar.svg"
 
@@ -16,14 +18,21 @@ export default function IntroSection() {
       let fontSize = 1
       content.style.fontSize = `${fontSize}px`
 
+      // Increase font size until content exceeds container dimensions
       while (content.scrollHeight <= containerHeight && content.scrollWidth <= containerWidth) {
         fontSize++
         content.style.fontSize = `${fontSize}px`
       }
 
-      // Step back once to ensure it fits
+      // Step back to ensure content fits
       fontSize--
       content.style.fontSize = `${fontSize}px`
+
+      // If content still overflows height, reduce font size further
+      while (content.scrollHeight > containerHeight) {
+        fontSize--
+        content.style.fontSize = `${fontSize}px`
+      }
     }
 
     resizeText()
@@ -35,15 +44,15 @@ export default function IntroSection() {
   return (
     <div className="bg-gradient-to-br from-gray-800 to-black text-white h-[90vh] flex items-center justify-center">
       <div className="w-full h-full max-w-[80vw] flex items-center justify-center">
-        <div ref={contentRef} className="w-full h-[80%] flex flex-col justify-center items-start">
-          <p className="font-light flex items-center whitespace-nowrap">
+        <div ref={contentRef} className="w-full h-[80%] flex flex-col justify-center items-start overflow-hidden">
+          <p className="font-light flex items-center flex-wrap">
             Hey <img src={Avatar} className="w-[1.6em] h-[1.6em] ml-2"/>
           </p>
-          <p className="font-light whitespace-nowrap">
+          <p className="font-light">
             I am <span className="font-normal text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">pulakJain</span>
           </p>
-          <p className="font-light mt-[0.2em] whitespace-nowrap">Your Go → To</p>
-          <p className="font-light whitespace-nowrap">Human Software Eng.</p>
+          <p className="font-light mt-[0.2em]">Your Go → To</p>
+          <p className="font-light">Human Software Eng.</p>
         </div>
       </div>
     </div>
