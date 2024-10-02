@@ -46,9 +46,9 @@ export default function IntroSection() {
   }, [])
 
   return (
-    <div className="bg-gradient-to-br from-gray-800 to-black text-white h-[90.7vh] flex items-center justify-center">
+    <div className="text-white h-[90.7vh] flex items-center justify-center">
       <div className="w-full h-full max-w-[80vw] flex items-center justify-center">
-        <div ref={contentRef} className="w-full h-[80%] flex flex-col justify-center items-start overflow-hidden space-y-[0.5em]">
+        <div ref={contentRef} className="w-full h-[90%] flex flex-col items-start overflow-hidden space-y-[0.5em]">
           <p className="font-light flex items-center flex-wrap">
             <span className="inline-flex items-baseline">
               Hey
