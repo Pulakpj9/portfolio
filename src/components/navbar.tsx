@@ -30,7 +30,10 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-transparent text-white border-b-[0.5px] border-[#ffffff1c]">
+    <header
+      className="sticky top-0 z-4 w-full bg-transparent text-white border-b-[0.5px] border-[#ffffff1c]"
+      style={{ backdropFilter: "blur(10px)" }}
+    >
       <div className="relative flex items-center justify-between h-16 px-4 md:px-6">
         {/* Mobile Menu Button */}
         <Button
@@ -118,7 +121,7 @@ export default function Navbar() {
         <Button
           variant="secondary"
           size="sm"
-          className="hidden md:flex items-center border-[1.5px] border-[#ffffff1c] p-[18px] rounded-[6px] bg-[#000000] border-" 
+          className="hidden md:flex items-center border-[1.5px] border-[#ffffff1c] p-[18px] rounded-[6px] bg-[#000000] border-"
         >
           <svg
             className="w-4 h-4 mr-2"
