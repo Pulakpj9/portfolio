@@ -17,7 +17,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
   location,
   description,
 }) => (
-  <div className="mb-12 bg-gray-800 rounded-lg p-6 shadow-lg">
+  <div className="mb-12 rounded-lg p-6">
     <div className="flex items-start mb-4">
       <div className="w-1/4 mr-6">
         <img src={logo} alt={`${company} logo`} className="w-full max-w-[120px]" />
@@ -42,9 +42,9 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
 
 const ExperienceSection: React.FC = () => {
   return (
-    <section className="bg-gray-900 text-white py-16">
+    <section className="text-white py-16 w-[80vw] mx-auto">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-12">./Experience</h2>
+        <h2 className="text-5xl mb-[7vh]">./Experience</h2>
         <ExperienceItem 
           logo="/path-to-capgemini-logo.png"
           company="Capgemini"

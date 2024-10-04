@@ -12,15 +12,15 @@ const WorkItem: React.FC<WorkItemProps> = ({ number, title, gradient }) => (
       <span className="text-sm text-gray-400">({number.toString().padStart(2, '0')})</span>
       <h3 className="text-xl font-semibold">{title}</h3>
     </div>
-    <div className={`w-full h-48 rounded-lg ${gradient}`}></div>
+    <div className={`w-full h-48 rounded ${gradient}`}></div>
   </div>
 );
 
 const WorkSection: React.FC = () => {
   return (
-    <section className="bg-gray-900 text-white py-16">
+    <section className="text-white py-16 w-[80vw] mx-auto">
       <div className="container mx-auto px-4">
-        <h2 className="text-3xl font-bold mb-8">./Work</h2>
+        <h2 className="text-5xl font-bold mb-16">./Work</h2>
         <WorkItem 
           number={1}
           title="Sketch Sense"
