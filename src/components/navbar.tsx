@@ -118,21 +118,23 @@ export default function Navbar() {
         </nav>
 
         {/* Resume Button */}
-        <Button
-          variant="secondary"
-          size="sm"
-          className="hidden md:flex items-center border-[1.5px] border-[#ffffff1c] p-[18px] rounded-[6px] bg-[#000000] border-"
-        >
-          <svg
-            className="w-4 h-4 mr-2"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+        <div className="relative">
+          <Button
+            variant="secondary"
+            size="sm"
+            className="hidden md:flex items-center border-[1.5px] border-[#909090] p-[18px] rounded-[6px] bg-[#000000] hover:bg-[#333333] hover:text-white transition-colors duration-200 ease-in-out cursor-pointer"
           >
-            <circle cx="12" cy="12" r="8" />
-          </svg>
-          Resume
-        </Button>
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="12" cy="12" r="8" />
+            </svg>
+            Resume
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
