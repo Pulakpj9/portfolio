@@ -54,7 +54,7 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
         </div>
       </div>
     </div>
-    <p className="text-sm text-gray-300">{description}</p>
+    <p className="text-sm text-gray-300 text-justify">{description}</p>
   </div>
 );
 
