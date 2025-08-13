@@ -517,7 +517,7 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 // === Particle Layer (Interactive) ===
-function ParticleLayer({ count, size, speed, color, spread }) {
+function ParticleLayer({ count, size, speed, color, spread }: any) {
   const pointsRef = useRef<THREE.Points>(null);
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
