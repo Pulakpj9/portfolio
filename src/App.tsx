@@ -3,6 +3,7 @@ import IntroSection from "@/components/introSection";
 import ExperienceItem from "@/components/experience";
 import WorkSection from "@/components/work";
 import TextureMesh from "@/components/textureMesh";
+import Chatbot from "./components/chatbot";
 import { useSectionObserver } from "./hooks/useSectionObserver";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <ExperienceItem />
         <WorkSection />
       </div>
+      <Chatbot />
     </div>
   );
 }
