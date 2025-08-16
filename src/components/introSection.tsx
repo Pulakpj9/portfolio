@@ -27,7 +27,7 @@ export default function IntroSection() {
     const experienceSection = document.getElementById("experience");
     if (experienceSection) {
       // Calculate position with 100px offset
-      const offset = 70;
+      const offset = 0;
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = experienceSection.getBoundingClientRect().top;
       const elementPosition = elementRect - bodyRect;
@@ -43,7 +43,7 @@ export default function IntroSection() {
   return (
     <section
       id="intro"
-      className="relative h-[92vh] flex items-center justify-center text-white px-6 overflow-hidden"
+      className="relative h-[100vh] pt-20 flex items-center justify-center text-white px-6 overflow-hidden"
     >
       <motion.div
         variants={container}
