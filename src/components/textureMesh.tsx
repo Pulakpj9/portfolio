@@ -511,10 +511,166 @@
 //   );
 // }
 
+// // ./components/TextureMesh.tsx
+// import { useMemo, useRef, useState, useEffect } from "react";
+// import { Canvas, useFrame } from "@react-three/fiber";
+// import * as THREE from "three";
+
+// // === Particle Layer (Interactive) ===
+// function ParticleLayer({ count, size, speed, color, spread }: any) {
+//   const pointsRef = useRef<THREE.Points>(null);
+//   const [mouse, setMouse] = useState({ x: 0, y: 0 });
+
+//   const positions = useMemo(() => {
+//     const arr = new Float32Array(count * 3);
+//     for (let i = 0; i < count; i++) {
+//       arr[i * 3] = (Math.random() - 0.5) * spread;
+//       arr[i * 3 + 1] = (Math.random() - 0.5) * spread;
+//       arr[i * 3 + 2] = (Math.random() - 0.5) * spread;
+//     }
+//     return arr;
+//   }, [count, spread]);
+
+//   useEffect(() => {
+//     const handleMouseMove = (e: MouseEvent) => {
+//       setMouse({
+//         x: (e.clientX / window.innerWidth - 0.5) * 2,
+//         y: (e.clientY / window.innerHeight - 0.5) * -2,
+//       });
+//     };
+//     window.addEventListener("mousemove", handleMouseMove);
+//     return () => window.removeEventListener("mousemove", handleMouseMove);
+//   }, []);
+
+//   useFrame(({ clock }) => {
+//     const t = clock.getElapsedTime() * speed;
+//     if (pointsRef.current) {
+//       pointsRef.current.rotation.y = t * 0.2 + mouse.x * 0.2;
+//       pointsRef.current.rotation.x = Math.sin(t * 0.1) * 0.1 + mouse.y * 0.2;
+//     }
+//   });
+
+//   return (
+//     <points ref={pointsRef}>
+//       <bufferGeometry>
+//         <bufferAttribute
+//           attach="attributes-position"
+//           array={positions}
+//           count={positions.length / 3}
+//           itemSize={3}
+//         />
+//       </bufferGeometry>
+//       <pointsMaterial
+//         size={size}
+//         color={color}
+//         transparent
+//         opacity={0.7}
+//         blending={THREE.AdditiveBlending}
+//         depthWrite={false}
+//       />
+//     </points>
+//   );
+// }
+
+// // === Moving Lamp Light ===
+// function MovingLight() {
+//   const lightRef = useRef<THREE.PointLight>(null);
+
+//   useFrame(({ clock }) => {
+//     const t = clock.getElapsedTime();
+//     const radius = 6;
+//     const speed = 0.25;
+//     if (lightRef.current) {
+//       lightRef.current.position.x = radius * Math.cos(t * speed) + 3;
+//       lightRef.current.position.y = radius * Math.sin(t * speed) + 4;
+//       lightRef.current.position.z = 5;
+//     }
+//   });
+
+//   return (
+//     <pointLight
+//       ref={lightRef}
+//       intensity={2}
+//       distance={14}
+//       color="#00f5ff"
+//       castShadow
+//     />
+//   );
+// }
+
+// // === Futuristic Grid Floor ===
+// function MeshPlane() {
+//   return (
+//     <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
+//       <planeGeometry args={[30, 30, 64, 64]} />
+//       <meshStandardMaterial
+//         color="#111"
+//         wireframe
+//         emissive="#00f5ff"
+//         emissiveIntensity={0.05}
+//         side={THREE.DoubleSide}
+//       />
+//     </mesh>
+//   );
+// }
+
+// // === Main Scene ===
+// export default function TextureMesh() {
+//   return (
+//     <div
+//       style={{
+//         position: "fixed",
+//         inset: 0,
+//         zIndex: 0,
+//         background: "radial-gradient(ellipse at center, #050505 0%, #000 100%)",
+//       }}
+//     >
+//       <Canvas
+//         camera={{ position: [0, 2, 10], fov: 60 }}
+//         shadows
+//         gl={{ antialias: true }}
+//       >
+//         {/* Subtle ambient light */}
+//         <ambientLight intensity={0.15} />
+
+//         {/* Dynamic moving lamp */}
+//         <MovingLight />
+
+//         {/* Interactive particle layers */}
+//         <ParticleLayer
+//           count={400}
+//           size={0.04}
+//           speed={0.5}
+//           color="#00f5ff"
+//           spread={40}
+//         />
+//         <ParticleLayer
+//           count={250}
+//           size={0.06}
+//           speed={0.3}
+//           color="#ff00ff"
+//           spread={30}
+//         />
+//         <ParticleLayer
+//           count={150}
+//           size={0.08}
+//           speed={0.2}
+//           color="#ffffff"
+//           spread={20}
+//         />
+
+//         {/* Grid floor */}
+//         <MeshPlane />
+//       </Canvas>
+//     </div>
+//   );
+// }
+
 // ./components/TextureMesh.tsx
 import { useMemo, useRef, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { useSpring } from "@react-spring/three"; // smooth animation
 
 // === Particle Layer (Interactive) ===
 function ParticleLayer({ count, size, speed, color, spread }: any) {
@@ -615,7 +771,28 @@ function MeshPlane() {
 }
 
 // === Main Scene ===
-export default function TextureMesh() {
+export default function TextureMesh({
+  activeSection,
+}: {
+  activeSection: string;
+}) {
+  // pick colors / configs per section
+  const sectionConfigs: Record<string, { color: string; lightColor: string }> =
+    {
+      intro: { color: "#00f5ff", lightColor: "#00f5ff" },
+      experience: { color: "#ff00ff", lightColor: "#ff0080" },
+      work: { color: "#ffffff", lightColor: "#ffaa00" },
+    };
+
+  const { color, lightColor } =
+    sectionConfigs[activeSection] ?? sectionConfigs.intro;
+
+  // spring for smooth transitions
+  const spring: any = useSpring({
+    color,
+    lightColor,
+    config: { tension: 80, friction: 40 },
+  });
   return (
     <div
       style={{
@@ -641,21 +818,21 @@ export default function TextureMesh() {
           count={400}
           size={0.04}
           speed={0.5}
-          color="#00f5ff"
+          color={spring.color.get()}
           spread={40}
         />
         <ParticleLayer
           count={250}
           size={0.06}
           speed={0.3}
-          color="#ff00ff"
+          color={spring.color.get()}
           spread={30}
         />
         <ParticleLayer
           count={150}
           size={0.08}
           speed={0.2}
-          color="#ffffff"
+          color={spring.color.get()}
           spread={20}
         />
 

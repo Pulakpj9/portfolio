@@ -1,9 +1,10 @@
 import React from "react";
+import { motion } from "framer-motion";
 import capLogo from "../assets/images/capgeminiLogo.svg";
 // import infoLogo from "../assets/images/infowareLogo.png";
 
 interface ExperienceItemProps {
-  logo?: string; // Marked as optional
+  logo?: string; // Optional logo
   company: string;
   role: string;
   period: string;
@@ -34,18 +35,27 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
   location,
   description,
 }) => (
-  <div className="grid grid-cols-1 gap-[3vh] lg:grid-cols-[30%,70%] lg:gap-0 items-start">
+  <motion.div
+    className="grid grid-cols-1 gap-[3vh] lg:grid-cols-[30%,70%] lg:gap-0 items-start"
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+  >
     <div>
       {logo ? (
-        <img
+        <motion.img
           src={logo}
           alt={`${company} logo`}
           className="lg:w-[55%] w-[35%]"
+          initial={{ scale: 0.8, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         />
       ) : (
         <div className="font-bold text-2xl text-green-400">{company}</div>
       )}
-      <div className="grid grid-cols-1 items-start gap-[5%]">
+      <div className="grid grid-cols-1 items-start gap-[5%] mt-2">
         <h4 className="text-md text-gray-300">{role}</h4>
         <div className="text-xs mr-4">{period}</div>
         <div className="text-xs flex items-center">
@@ -54,15 +64,49 @@ const ExperienceItem: React.FC<ExperienceItemProps> = ({
         </div>
       </div>
     </div>
-    <p className="text-sm text-gray-300 text-justify">{description}</p>
-  </div>
+    <motion.p
+      className="text-sm text-gray-300 text-justify"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+    >
+      {description}
+    </motion.p>
+  </motion.div>
 );
 
 const ExperienceSection: React.FC = () => {
   return (
-    <section className="text-white py-10 w-[80vw] lg:h-[calc(91vh-32px)] mx-auto">
-      <h2 className="lg:h-[20%] lg:mb-0 mb-[7vh]" style={{fontSize: '2.5rem'}}>./Experience</h2>
-      <div className="grid grid-cols-1 gap-[5vh] lg:gap-0 lg:h-[80%] place-content-around">
+    <section
+      className="text-white py-10 w-[80vw] lg:h-[calc(91vh-32px)] mx-auto"
+      id="experience"
+    >
+      <motion.h2
+        className="lg:h-[20%] lg:mb-0 mb-[7vh]"
+        style={{ fontSize: "2.5rem" }}
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        ./Experience
+      </motion.h2>
+
+      <motion.div
+        className="grid grid-cols-1 gap-[5vh] lg:gap-0 lg:h-[80%] place-content-around"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={{
+          hidden: {},
+          show: {
+            transition: {
+              staggerChildren: 0.3, // stagger animation for items
+            },
+          },
+        }}
+      >
         <ExperienceItem
           logo={capLogo}
           company="Capgemini"
@@ -79,7 +123,7 @@ const ExperienceSection: React.FC = () => {
           location="Ahmedabad, India"
           description="Engaged in the development of a Hospital Information Management System and Alumni project as part of an ongoing internship. Contributed to various aspects of system design, implementation, and testing, gaining hands-on experience in software development and project management within a professional environment."
         />
-      </div>
+      </motion.div>
     </section>
   );
 };
