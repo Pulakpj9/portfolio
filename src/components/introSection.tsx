@@ -1,126 +1,119 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import type { Variants } from "framer-motion";
 import Avatar from "../assets/avatar.svg";
+import { ChevronsDown } from "lucide-react";
 
 export default function IntroSection() {
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  // === resize text logic stays ===
-  useEffect(() => {
-    const resizeText = () => {
-      const content = contentRef.current;
-      if (!content) return;
-
-      const containerWidth = content.offsetWidth;
-      const containerHeight = content.offsetHeight;
-
-      let fontSize = 1;
-      content.style.fontSize = `${fontSize}px`;
-
-      while (
-        content.scrollHeight <= containerHeight &&
-        content.scrollWidth <= containerWidth
-      ) {
-        fontSize++;
-        content.style.fontSize = `${fontSize}px`;
-      }
-
-      fontSize--;
-      content.style.fontSize = `${fontSize}px`;
-
-      while (content.scrollHeight > containerHeight) {
-        fontSize--;
-        content.style.fontSize = `${fontSize}px`;
-      }
-
-      const lineHeight = Math.max(1.2, Math.min(1.5, 30 / fontSize));
-      content.style.lineHeight = `${lineHeight}`;
-    };
-
-    resizeText();
-    window.addEventListener("resize", resizeText);
-
-    return () => window.removeEventListener("resize", resizeText);
-  }, []);
-
-  // === Animation Variants ===
   const container: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.25, delayChildren: 0.5 },
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
     },
   };
 
   const item: Variants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40 },
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }, // easeOut curve
+      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
+  const handleScroll = () => {
+    const experienceSection = document.getElementById("experience");
+    if (experienceSection) {
+      // Calculate position with 100px offset
+      const offset = 70;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = experienceSection.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <div className="text-white h-[91vh] flex items-center justify-center relative z-10" id='intro'>
-      <div className="w-full h-full max-w-[80vw] flex items-center justify-center">
-        <motion.div
-          ref={contentRef}
-          variants={container}
-          initial="hidden"
-          animate="show"
-          className="w-full h-[80%] flex flex-col items-start overflow-hidden space-y-[0.5em]"
+    <section
+      id="intro"
+      className="relative h-[92vh] flex items-center justify-center text-white px-6 overflow-hidden"
+    >
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="flex flex-col items-center text-center gap-4 z-10 mb-20" // Added mb-20 to push content up
+      >
+        {/* Greeting */}
+        <motion.p
+          variants={item}
+          className="flex items-center gap-2 text-lg md:text-2xl font-light"
         >
-          {/* Hey + Avatar */}
-          <motion.p
-            variants={item}
-            className="font-light flex items-center flex-wrap"
+          Hey
+          <motion.img
+            src={Avatar}
+            alt="Pulak avatar"
+            className="w-10 h-10 md:w-14 md:h-14"
+            initial={{ scale: 0, rotate: -20, opacity: 0 }}
+            animate={{ scale: 1, rotate: 0, opacity: 1 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
+          />
+        </motion.p>
+
+        {/* Name */}
+        <motion.h1
+          variants={item}
+          className="text-[clamp(3.5rem,10vw,6rem)] font-extrabold leading-tight tracking-tight"
+        >
+          I am{" "}
+          <span
+            className="bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-pink-400 
+                       bg-clip-text text-transparent"
           >
-            <span className="inline-flex items-baseline">
-              Hey
-              <motion.img
-                src={Avatar}
-                className="w-[40%] ml-[5%] inline-block"
-                initial={{ scale: 0, rotate: -45, opacity: 0 }}
-                animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                transition={{
-                  duration: 0.8,
-                  ease: [0.16, 1, 0.3, 1], // easeOut
-                  delay: 0.3,
-                }}
-              />
-            </span>
-          </motion.p>
+            Pulak Jain
+          </span>
+        </motion.h1>
 
-          {/* I am Pulak Jain */}
-          <motion.p variants={item} className="font-light">
-            I am{" "}
-            <span
-              className="font-bold"
-              style={{
-                background: "linear-gradient(90deg, #00f5ff, #ff00ff, #ffffff)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              pulakJain
-            </span>
-          </motion.p>
+        {/* Tagline */}
+        <motion.p
+          variants={item}
+          className="text-[clamp(1.5rem,3vw,2.3rem)] font-medium text-cyan-400"
+        >
+          Your Go → To
+        </motion.p>
 
-          {/* Go → To */}
-          <motion.p variants={item} className="font-light text-cyan-400">
-            Your Go → To
-          </motion.p>
+        {/* Role */}
+        <motion.p
+          variants={item}
+          className="text-[clamp(1.5rem,3vw,2.3rem)] font-medium text-pink-400"
+        >
+          Human Software Engineer
+        </motion.p>
+      </motion.div>
 
-          {/* Human Software Eng. */}
-          <motion.p variants={item} className="font-light text-pink-400">
-            Human Software Eng.
-          </motion.p>
+      {/* Scroll Down Indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 flex flex-col items-center cursor-pointer"
+        onClick={handleScroll}
+      >
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="text-gray-400 flex flex-col items-center"
+        >
+          <ChevronsDown className="w-8 h-8 md:w-10 md:h-10 text-white drop-shadow-[0_0_6px_rgba(255,0,255,0.8)]" />
         </motion.div>
-      </div>
-    </div>
+      </motion.div>
+    </section>
   );
 }
