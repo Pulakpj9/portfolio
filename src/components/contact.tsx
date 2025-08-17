@@ -47,11 +47,11 @@ const ContactSection: React.FC = () => {
 
   const socialLinks = [
     { icon: Github, url: "https://github.com/pulakpj9", label: "GitHub" },
-    {
-      icon: Twitter,
-      url: "https://twitter.com/pulakpj9",
-      label: "X (Twitter)",
-    },
+    // {
+    //   icon: Twitter,
+    //   url: "https://twitter.com/pulakpj9",
+    //   label: "X (Twitter)",
+    // },
     {
       icon: Linkedin,
       url: "https://linkedin.com/in/pulak-jain-aa1053203",
