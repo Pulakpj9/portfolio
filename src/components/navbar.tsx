@@ -33,13 +33,17 @@ export default function Navbar() {
   ];
 
   const handleResumeDownload = () => {
-    window.open("/path/to/your/resume.pdf", "_blank");
+    const link = document.createElement("a");
+    link.href = "../../public/Pulak_Jain_Resume.pdf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         // Scrolling down
         setNavbarVisible(false);
@@ -208,8 +212,8 @@ export default function Navbar() {
               >
                 Experience
               </a>
-              <a 
-                className="block text-sm font-medium text-gray-300 hover:text-white transition-colors" 
+              <a
+                className="block text-sm font-medium text-gray-300 hover:text-white transition-colors"
                 href="#work"
               >
                 Work
@@ -238,7 +242,9 @@ export default function Navbar() {
                     <social.icon className="w-4 h-4" />
                     <div>
                       <div className="text-sm">{social.name}</div>
-                      <div className="text-xs text-gray-500 font-mono">{social.username}</div>
+                      <div className="text-xs text-gray-500 font-mono">
+                        {social.username}
+                      </div>
                     </div>
                   </a>
                 ))}
