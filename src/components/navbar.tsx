@@ -7,7 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
   const [isSocialsOpen, setIsSocialsOpen] = useState(false);
+  const [isSocialsLocked, setIsSocialsLocked] = useState(false); // desktop lock
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isMobileSocialsOpen, setIsMobileSocialsOpen] = useState(false); // mobile accordion
   const [lastScrollY, setLastScrollY] = useState(0);
   const [navbarVisible, setNavbarVisible] = useState(true);
 
@@ -34,7 +36,8 @@ export default function Navbar() {
 
   const handleResumeDownload = () => {
     const link = document.createElement("a");
-    link.href = "../../public/Pulak_Jain_Resume.pdf";
+    link.href = "/Pulak_Jain_Resume.pdf"; // served from /public
+    link.download = "Pulak_Jain_Resume.pdf";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -45,11 +48,9 @@ export default function Navbar() {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling down
-        setNavbarVisible(false);
+        setNavbarVisible(false); // scrolling down
       } else if (currentScrollY < lastScrollY) {
-        // Scrolling up
-        setNavbarVisible(true);
+        setNavbarVisible(true); // scrolling up
       }
 
       setLastScrollY(currentScrollY);
@@ -82,23 +83,27 @@ export default function Navbar() {
             Work
           </a>
           <a
-            href="#skills"
+            href="#contact"
             className="text-sm font-medium hover:text-gray-300 transition-colors"
           >
-            Skills
-          </a>
-          <a
-            href="#research"
-            className="text-sm font-medium hover:text-gray-300 transition-colors"
-          >
-            Research
+            Contact
           </a>
 
-          <div className="relative">
+          {/* Socials - Desktop (Hover + Click Lock) */}
+          <div
+            className="relative"
+            onMouseEnter={() => setIsSocialsOpen(true)}
+            onMouseLeave={() => {
+              if (!isSocialsLocked) setIsSocialsOpen(false);
+            }}
+          >
             <Button
               variant="ghost"
               className="text-sm font-medium flex items-center hover:bg-transparent hover:text-gray-300 px-2"
-              onClick={() => setIsSocialsOpen(!isSocialsOpen)}
+              onClick={() => {
+                setIsSocialsLocked((prev) => !prev);
+                setIsSocialsOpen((prev) => !prev);
+              }}
             >
               Socials
               <svg
@@ -220,34 +225,65 @@ export default function Navbar() {
               </a>
               <a
                 className="block text-sm font-medium text-gray-300 hover:text-white transition-colors"
-                href="#skills"
+                href="#contact"
               >
-                Skills
+                Contact
               </a>
-              <a
-                className="block text-sm font-medium text-gray-300 hover:text-white transition-colors"
-                href="#research"
-              >
-                Research
-              </a>
-              <div className="mt-2 pt-4 border-t border-gray-700 space-y-3">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-3 text-gray-300 hover:text-white py-1.5 transition-colors"
+
+              {/* Mobile Socials Accordion */}
+              <div className="pt-4 border-t border-gray-700">
+                <Button
+                  variant="ghost"
+                  className="w-full flex justify-between items-center text-gray-300 hover:text-white"
+                  onClick={() => setIsMobileSocialsOpen((prev) => !prev)}
+                >
+                  <span>Socials</span>
+                  <svg
+                    className={`w-4 h-4 transition-transform ${
+                      isMobileSocialsOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
                   >
-                    <social.icon className="w-4 h-4" />
-                    <div>
-                      <div className="text-sm">{social.name}</div>
-                      <div className="text-xs text-gray-500 font-mono">
-                        {social.username}
-                      </div>
-                    </div>
-                  </a>
-                ))}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </Button>
+
+                <AnimatePresence>
+                  {isMobileSocialsOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.2 }}
+                      className="space-y-3 mt-2"
+                    >
+                      {socialLinks.map((social, index) => (
+                        <a
+                          key={index}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 text-gray-300 hover:text-white py-1.5 transition-colors"
+                        >
+                          <social.icon className="w-4 h-4" />
+                          <div>
+                            <div className="text-sm">{social.name}</div>
+                            <div className="text-xs text-gray-500 font-mono">
+                              {social.username}
+                            </div>
+                          </div>
+                        </a>
+                      ))}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
           </motion.div>
