@@ -139,16 +139,16 @@ const ContactSection: React.FC = () => {
 
           {/* Social Links */}
           <motion.div
-            className="bg-gray-900/80 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-gray-700/50 flex flex-col items-center justify-center"
+            className="bg-gray-900/80 backdrop-blur-md rounded-2xl p-8 shadow-lg border border-gray-700/50 flex flex-col justify-center items-center"
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold mb-6 text-white">
+            <div className="flex flex-col gap-6">
+            <h3 className="text-2xl font-bold text-white text-left">
               Connect With Me
             </h3>
-            <div className="flex flex-col gap-6">
               {socialLinks.map((link, index) => (
                 <motion.a
                   key={index}
